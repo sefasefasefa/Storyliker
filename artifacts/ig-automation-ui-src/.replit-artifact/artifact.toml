@@ -16,7 +16,7 @@ run = "pnpm --filter @workspace/ig-automation-ui run dev"
 [services.production]
 build = [ "pnpm", "--filter", "@workspace/ig-automation-ui", "run", "build" ]
 serve = "static"
-publicDir = "artifacts/ig-automation-ui/dist/public"
+publicDir = "artifacts/ig-automation-ui-src/dist/public"
 
 [[services.production.rewrites]]
 from = "/*"

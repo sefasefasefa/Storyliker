@@ -4,12 +4,19 @@ A developer tool for security researchers and engineers to inspect and test Inst
 
 ## Run & Operate
 
-All three services run as managed Replit workflows (started automatically):
-- `artifacts/instagram-explorer: web` — frontend, port 18900, served at `/`
-- `artifacts/api-server-backup: API Server` — Express API proxy, port 8080, served at `/api` (directory is named `api-server-backup`, a leftover from import; the package itself is `@workspace/api-server`)
+Four services run as managed Replit workflows (started automatically). Note: these artifacts were imported with pre-existing `artifact.toml` files, so their directory names carry a `-src` suffix (a byproduct of the import/registration process) even though the package names and workflow titles are clean:
+
+- `artifacts/instagram-explorer-src: web` — frontend, port 18900, served at `/` (package `@workspace/instagram-explorer`)
+- `artifacts/api-server-backup-src: API Server` — Express API proxy, port 8080, served at `/api` (package `@workspace/api-server`)
+- `artifacts/ig-automation-ui-src: web` — a second, separate frontend "Instagram Otomasyon Paneli" (automation panel), served at `/ig-automation-ui/` (package `@workspace/ig-automation-ui`)
 - `artifacts/mockup-sandbox: Component Preview Server` — canvas component preview, port 8081, served at `/__mockup`
 
 To restart a service manually, use the Replit workflow restart tool with the exact workflow name above (do not run the dev commands directly — the managed workflows inject required `PORT`/`BASE_PATH` env vars).
+
+## Other content in this import
+
+- `İnstagram Follewer Puller/` — an unrelated, standalone Python toolkit (not part of the pnpm workspace) with Instagram follower-scraping/analysis scripts (`instagramFollowerPuller.py`, `yenipuller.py`) and a `buildozer.spec` suggesting it was once packaged as a mobile app. Left as-is; not wired into any workflow.
+- `main.py` at the project root — leftover generic Replit placeholder ("Hello from repl-nix-workspace!"), unused by the pnpm workspace apps.
 
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
@@ -26,11 +33,12 @@ To restart a service manually, use the Replit workflow restart tool with the exa
 ## Where things live
 
 - `lib/api-spec/openapi.yaml` — OpenAPI spec (source of truth for all contracts)
-- `artifacts/api-server/src/lib/instagram.ts` — Instagram API proxy client (REST + GraphQL)
-- `artifacts/api-server/src/lib/session.ts` — In-memory session store + header builder
-- `artifacts/api-server/src/lib/history.ts` — In-memory request history (last 100 entries)
-- `artifacts/api-server/src/routes/instagram.ts` — Proxy route handlers
-- `artifacts/instagram-explorer/src/pages/` — Frontend pages (dashboard, profile, post, graphql, hashtag, stories, session)
+- `artifacts/api-server-backup-src/src/lib/instagram.ts` — Instagram API proxy client (REST + GraphQL)
+- `artifacts/api-server-backup-src/src/lib/session.ts` — In-memory session store + header builder
+- `artifacts/api-server-backup-src/src/lib/history.ts` — In-memory request history (last 100 entries)
+- `artifacts/api-server-backup-src/src/routes/instagram.ts` — Proxy route handlers
+- `artifacts/instagram-explorer-src/src/pages/` — Frontend pages (dashboard, profile, post, graphql, hashtag, stories, session)
+- `artifacts/ig-automation-ui-src/` — separate "Instagram Otomasyon Paneli" automation frontend, served at `/ig-automation-ui/`
 
 ## Architecture decisions
 
